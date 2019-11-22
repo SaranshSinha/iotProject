@@ -1,1 +1,1 @@
-# pythonProject
+# Expense tracker Software
