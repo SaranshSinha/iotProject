@@ -1,0 +1,4 @@
+today=str(date.today()).replace("-","/")	#today's date in string format	output : 'yyyy/mm/dd'
+today1=today.split("/")
+today1.reverse()
+"/".join(today1)
