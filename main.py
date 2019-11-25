@@ -35,14 +35,14 @@ def populateTransaction(frame):
         i = 0
         for r in cursor:
             if r[3] == 'expense':
-                Label(dataFrame, text="%s"%(r[5]), width=20,height = 3,borderwidth='1',relief = 'solid',bg='red',pady=3).grid(row=i,column=0)
-                Label(dataFrame, text = "%s - (%s) :"%(r[1],r[2]),width=50,height = 3,borderwidth='1',relief = 'solid',bg='red',pady=3).grid(row=i,column=1)
-                Label(dataFrame, text = 'Rs. %s'%(r[4]), width = 50,height=3, borderwidth = '1',bg='red',relief='solid',pady=3).grid(row=i,column=2)
+                # Label(dataFrame, text="%s"%(r[5]), width=20,height = 3,borderwidth='1',relief = 'solid',bg='red3',pady=3,fg='white',font=('Copperplate Gothic Bold','8')).grid(row=i,column=0)
+                Label(dataFrame, text = "%s - (%s) :"%(r[1],r[5]),width=50,height = 3,borderwidth='1',relief = 'solid',bg='red3',pady=3,fg='white',font=('Copperplate Gothic Bold','13')).grid(row=i,column=1)
+                Label(dataFrame, text = 'Rs. %s'%(r[4]), width = 50,height=3, borderwidth = '1',bg='red3',relief='solid',pady=3,fg='white',font=('Copperplate Gothic Bold','13')).grid(row=i,column=2)
                 i+=1
             else:
-                Label(dataFrame, text="%s"%(r[5]), width=20,height = 3,borderwidth='1',relief = 'solid',bg='green',pady=3).grid(row=i,column=0)
-                Label(dataFrame, text = "%s - (%s) :"%(r[1],r[2]),width=50,height = 3,borderwidth='1',relief = 'solid',bg='green',pady=3).grid(row=i,column=1)
-                Label(dataFrame, text = 'Rs. %s'%(r[4]), width = 50,height=3, borderwidth = '1',bg='green',relief='solid',pady=3).grid(row=i,column=2)
+                # Label(dataFrame, text="%s"%(r[5]), width=20,height = 3,borderwidth='1',relief = 'solid',bg='green',pady=3).grid(row=i,column=0)
+                Label(dataFrame, text = "%s - (%s) :"%(r[1],r[5]),width=50,height = 3,borderwidth='1',relief = 'solid',bg='green',pady=3,fg='white',font=('Copperplate Gothic Bold','13')).grid(row=i,column=1)
+                Label(dataFrame, text = 'Rs. %s'%(r[4]), width = 50,height=3, borderwidth = '1',bg='green',relief='solid',pady=3,fg='white',font=('Copperplate Gothic Bold','13')).grid(row=i,column=2)
                 i+=1
         #Label(dataFrame, text = "%s - (%s) :"%(a,b),width=50,height = 3,borderwidth='1',relief = 'solid',bg='green',pady=3).grid(row=i+1,column=0)
    
@@ -58,11 +58,16 @@ def populateTransaction(frame):
     cursor=conn.execute("SELECT * FROM Expense WHERE edate='22/11/2019' and type='expense'")
     i = 0
     for r in cursor:
-        Label(dataFrame, text="%s"%(r[5]), width=20,height = 3,borderwidth='1',relief = 'solid',bg='red',pady=3).grid(row=i,column=0)
-        Label(dataFrame, text = "%s - (%s) :"%(r[1],r[2]),width=50,height = 3,borderwidth='1',relief = 'solid',bg='red',pady=3).grid(row=i,column=1)
-        Label(dataFrame, text = 'Rs. %s'%(r[4]), width = 50,height=3, borderwidth = '1',bg='red',relief='solid',pady=3).grid(row=i,column=2)
+        # Label(dataFrame, text="%s"%(r[5]), width=20,height = 3,borderwidth='1',relief = 'solid',bg='red3',pady=3,fg='white',font=('Copperplate Gothic Bold','8')).grid(row=i,column=0)
+        Label(dataFrame, text = "%s - (%s)"%(r[1],r[5]),width=50,height = 3,borderwidth='1',relief = 'solid',bg='red3',pady=3,fg='white',font=('Copperplate Gothic Bold','13')).grid(row=i,column=1)
+        Label(dataFrame, text = 'Rs. %s'%(r[4]), width = 50,height=3, borderwidth = '1',bg='red3',relief='solid',pady=3,fg='white',font=('Copperplate Gothic Bold','13')).grid(row=i,column=2)
         i+=1
-
+    cursor=conn.execute("SELECT * FROM Expense WHERE edate='22/11/2019' and type='expense'")
+    for r in cursor:
+        # Label(dataFrame, text="%s"%(r[5]), width=20,height = 3,borderwidth='1',relief = 'solid',bg='green',pady=3).grid(row=i,column=0)
+        Label(dataFrame, text = "%s - (%s) :"%(r[1],r[5]),width=50,height = 3,borderwidth='1',relief = 'solid',bg='green',pady=3,fg='white',font=('Copperplate Gothic Bold','13')).grid(row=i,column=1)
+        Label(dataFrame, text = 'Rs. %s'%(r[4]), width = 50,height=3, borderwidth = '1',bg='green',relief='solid',pady=3,fg='white',font=('Copperplate Gothic Bold','13')).grid(row=i,column=2)
+        i+=1
     
 def populateHome(frame):
     for row in range(100):
