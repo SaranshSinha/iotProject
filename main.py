@@ -1,4 +1,5 @@
 from tkinter import *
+from tkcalendar import *
 import sqlite3
 
 root =Tk()
@@ -8,19 +9,19 @@ rootWidth = root.winfo_screenwidth()
 conn=sqlite3.connect("ExpenseTracker.db")
 
 def populateTransaction(frame):
-    Label(frame, text = "Your Transactions", width= rootWidth, height = 3, anchor=CENTER, bg='pink',bd=4).pack()
+    Label(frame, text = "Your Transactions", width= rootWidth, height = 3, anchor=CENTER, bg='blue4',fg='gold',bd=4,font=('Algerian','13','bold')).pack()
     searchFrame = Frame(frame, padx = 10, pady=10)
     searchFrame.pack(fill=BOTH, expand = True)
     searchFrame.grid_columnconfigure(0, weight=1)
     searchFrame.grid_columnconfigure(1, weight=1)
     searchFrame.grid_columnconfigure(2, weight=1)
     searchFrame.grid_columnconfigure(3, weight=1)
-    Label(searchFrame, text = "From").grid(row = 0, column = 1)
-    startDate_E = Entry(searchFrame, width=20)
-    startDate_E.grid(row=0, column=2)
-    Label(searchFrame, text = "To").grid(row = 1, column = 1)
-    endDate_E = Entry(searchFrame, width=20)
-    endDate_E.grid(row=1, column=2)
+    Label(searchFrame, text = "From",font=('Lucida Console','12','bold'),bg='purple',fg='white',width=10).grid(row = 0, column = 1)
+    startDate_E = DateEntry(searchFrame, width=20, bd=3,date_pattern='dd/mm/yyyy')
+    startDate_E.grid(row=0, column=2, pady=5)
+    Label(searchFrame, text = "To",font=('Lucida Console','12','bold'),bg='purple',width=10,fg='white').grid(row = 1, column = 1)
+    endDate_E = DateEntry(searchFrame, width=20,bd=3,date_pattern='dd/mm/yyyy')
+    endDate_E.grid(row=1, column=2,pady=5)
     
     
     def search():
@@ -34,32 +35,32 @@ def populateTransaction(frame):
         i = 0
         for r in cursor:
             if r[3] == 'expense':
-                Label(dataFrame, text = "%s - (%s) :"%(r[1],r[2]),width=50,height = 3,borderwidth='1',relief = 'solid',bg='red',pady=3).grid(row=i,column=0)
-                Label(dataFrame, text = 'Rs. %s'%(r[4]), width = 50,height=3, borderwidth = '1',bg='red',relief='solid',pady=3).grid(row=i,column=1)
+                Label(dataFrame, text="%s"%(r[5]), width=20,height = 3,borderwidth='1',relief = 'solid',bg='red',pady=3).grid(row=i,column=0)
+                Label(dataFrame, text = "%s - (%s) :"%(r[1],r[2]),width=50,height = 3,borderwidth='1',relief = 'solid',bg='red',pady=3).grid(row=i,column=1)
+                Label(dataFrame, text = 'Rs. %s'%(r[4]), width = 50,height=3, borderwidth = '1',bg='red',relief='solid',pady=3).grid(row=i,column=2)
                 i+=1
             else:
-                Label(dataFrame, text = "%s - (%s) :"%(r[1],r[2]),width=50,height = 3,borderwidth='1',relief = 'solid',bg='green',pady=3).grid(row=i,column=0)
-                Label(dataFrame, text = 'Rs. %s'%(r[4]), width = 50,height=3, borderwidth = '1',bg='green',relief='solid',pady=3).grid(row=i,column=1)
+                Label(dataFrame, text="%s"%(r[5]), width=20,height = 3,borderwidth='1',relief = 'solid',bg='green',pady=3).grid(row=i,column=0)
+                Label(dataFrame, text = "%s - (%s) :"%(r[1],r[2]),width=50,height = 3,borderwidth='1',relief = 'solid',bg='green',pady=3).grid(row=i,column=1)
+                Label(dataFrame, text = 'Rs. %s'%(r[4]), width = 50,height=3, borderwidth = '1',bg='green',relief='solid',pady=3).grid(row=i,column=2)
                 i+=1
-        
-        # for i in range(50):
-        #     Label(dataFrame, text = "hello",width=50,height = 3,borderwidth='1',relief = 'solid',bg='green',pady=3).grid(row=i,column=0)
-        #     Label(dataFrame, text = "world", width = 50,height=3, borderwidth = '1',bg='green',relief='solid',pady=3).grid(row=i,column=1)
-        #     i+=1
-    Button(searchFrame, text="Search", width=10, command = search).grid(row = 2, column = 2)
+        #Label(dataFrame, text = "%s - (%s) :"%(a,b),width=50,height = 3,borderwidth='1',relief = 'solid',bg='green',pady=3).grid(row=i+1,column=0)
+   
+    Button(searchFrame, text="Search", width=10, command = search, bg = 'gold', activebackground='green2',font=('Brush Script MT','18')).grid(row = 2, column = 2,pady=10)
     dataFrame = Frame(frame, padx = 10, pady=10)
     dataFrame.pack(fill = BOTH, expand = True)
     dataFrame.grid_columnconfigure(0, weight=1)
-    dataFrame.grid_columnconfigure(1, weight=1)
-    #dataFrame.grid_columnconfigure(2, weight=1)
+    dataFrame.grid_columnconfigure(1, weight=2)
+    dataFrame.grid_columnconfigure(2, weight=2)
  
     #database 
     
     cursor=conn.execute("SELECT * FROM Expense WHERE edate='22/11/2019' and type='expense'")
     i = 0
     for r in cursor:
-        Label(dataFrame, text = "%s - (%s) :"%(r[1],r[2]),width=50,height = 3,borderwidth='1',relief = 'solid',bg='red',pady=3).grid(row=i,column=0)
-        Label(dataFrame, text = 'Rs. %s'%(r[4]), width = 50,height=3, borderwidth = '1',bg='red',relief='solid',pady=3).grid(row=i,column=1)
+        Label(dataFrame, text="%s"%(r[5]), width=20,height = 3,borderwidth='1',relief = 'solid',bg='red',pady=3).grid(row=i,column=0)
+        Label(dataFrame, text = "%s - (%s) :"%(r[1],r[2]),width=50,height = 3,borderwidth='1',relief = 'solid',bg='red',pady=3).grid(row=i,column=1)
+        Label(dataFrame, text = 'Rs. %s'%(r[4]), width = 50,height=3, borderwidth = '1',bg='red',relief='solid',pady=3).grid(row=i,column=2)
         i+=1
 
     
@@ -154,7 +155,7 @@ def transactionHelper():
     # transaction.grid_forget()
     for Widget in transaction.winfo_children():
         Widget.destroy()        
-    transaction.grid(row= 0, column=1)
+    transaction.grid(row= 0, column=1,pady=5)
     transaction.tkraise()
     populateTransaction(transaction)
 
@@ -176,7 +177,7 @@ def tagSummaryHelper():
     transaction.grid_forget()
     for Widget in tagSummary.winfo_children():
         Widget.destroy()
-    tagSummary.grid(row=0,column=1)
+    tagSummary.grid(row=0,column=1,pady=5)
     tagSummary.tkraise()
     populateTagSummary(tagSummary)
 
@@ -187,7 +188,7 @@ def itemTrackerHelper():
     transaction.grid_forget()
     for Widget in itemTracker.winfo_children():
         Widget.destroy()
-    itemTracker.grid(row= 0, column = 1)
+    itemTracker.grid(row= 0, column = 1,pady=5)
     itemTracker.tkraise()
     populateItemTracker(itemTracker)
 
@@ -218,10 +219,10 @@ frameTab.grid_columnconfigure(0,weight=1)
 frameTab.grid_columnconfigure(1,weight=1)
 frameTab.grid_columnconfigure(2,weight=1)
 frameTab.grid_columnconfigure(3,weight=1)
-Button(frameTab, text = "Home", relief="solid", width= 10, bd = 1, command=homeHelper).grid(row = 0, column = 0)
-Button(frameTab, text = "Transaction", relief="solid", width= 13, bd = 1, command=transactionHelper).grid(row = 0, column = 1)
-Button(frameTab, text = "Expense Summary", relief="solid", width= 20, bd = 1,command=tagSummaryHelper).grid(row = 0, column = 2)
-Button(frameTab, text = "Item Budget", relief="solid", width= 15, bd = 1,command=itemTrackerHelper).grid(row = 0, column = 3)
+Button(frameTab, text = "Home", relief="solid", width= 50,height=2, bd = 1,bg='yellow',fg='purple', command=homeHelper,font=("Times", "13", "bold italic")).grid(row = 0, column = 0)
+Button(frameTab, text = "Transaction", relief="solid", width= 50,height=2, bd = 1,bg='yellow',fg='purple', command=transactionHelper,font=("Times", "13", "bold italic")).grid(row = 0, column = 1)
+Button(frameTab, text = "Expense Summary", relief="solid", width= 50,height=2, bd = 1,bg='yellow',fg='purple',command=tagSummaryHelper,font=("Times", "13", "bold italic")).grid(row = 0, column = 2)
+Button(frameTab, text = "Item Budget", relief="solid", width= 50,height=2, bd = 1,bg='yellow',fg='purple',command=itemTrackerHelper,font=("Times", "13", "bold italic")).grid(row = 0, column = 3)
 
 f = Frame(frame)
 f.pack(fill = BOTH, expand = True)
