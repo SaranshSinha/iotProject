@@ -1,0 +1,1 @@
+https://api.thingspeak.com/update?api_key=358ERYUMEQ3PDS0H&field1=1&field2=1
